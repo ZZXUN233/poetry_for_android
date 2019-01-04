@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="12">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/img_back"
+            style="@style/img_nav"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/pg_back" />
+
+        <ImageView
+            android:id="@+id/img_like"
+            style="@style/img_nav"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/pg_heart" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="11"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/poem_title"
+                style="@style/tex_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoSizeMinTextSize="3sp"
+                android:maxLines="2"
+                android:text="相思"
+                android:textAlignment="center"
+                android:textColor="@color/poem_content_color"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/poem_author"
+                style="@style/tex_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="[唐]王维"
+                android:textAlignment="center"
+                android:textColor="@color/poem_author_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/poem_content"
+                style="@style/tex_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/poem_content"
+                android:textColor="@color/poem_content_color"
+                android:textSize="30sp" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d3d3d3" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="0"
+                    android:text="感想"
+                    android:textColor="@color/poem_content_color"
+                    android:textSize="30sp" />
+
+
+                <ImageView
+                    android:id="@+id/img_speech"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/pg_speech" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/nav_brown" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/viewline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d3d3d3" />
+
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+            </ListView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="nav_black">#1f1f1f</color>
+    <color name="nav_black2">#3f3f3f</color>
+    <color name="nav_brown">#7f7f7f</color>
+
+    <color name="poem_content_color">#1f1f1f</color>
+    <color name="poem_author_color">#3f3f3f</color>
+
+    <!--login-->
+    <color name="hui_5E5E5E">#ff5e5e5e</color>
+    <color name="hui_e7e7e7">#ffe7e7e7</color>
+    <color name="tex_tag">#000000</color>
+
+    <color name="btn_login">#bfbfbf</color>
+    <color name="btn_tex">#1f1f1f</color>
+
+</resources>

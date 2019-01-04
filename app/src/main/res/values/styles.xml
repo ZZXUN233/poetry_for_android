@@ -1,0 +1,101 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="AppTheme.NoActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--自定义style-->
+    <style name="tex_title">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="img_nav">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="poem_show">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+
+    </style>
+
+    <style name="img_show">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="line_show">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#d3d3d3</item>
+    </style>
+
+    <style name="tex_name">
+        <item name="android:textSize">30sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="tag_tex">
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+
+    <!--textView 内容适配-->
+    <style name="tex_auto">
+        <item name="android:autoSizeMaxTextSize">40sp</item>
+        <item name="android:autoSizeMinTextSize">10sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <!--login-->
+    <style name="ipt_account">
+        <item name="android:background">@drawable/shape_btn_account</item>
+    </style>
+
+    <style name="btn_login" parent="Base.Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:background">@drawable/shape_btn_login</item>
+        <item name="android:textColor">@color/btn_tex</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="login_tex">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/nav_brown</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_weight">2</item>
+
+    </style>
+
+</resources>
