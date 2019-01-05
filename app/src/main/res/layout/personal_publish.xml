@@ -2,25 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0">
+    >
 
 
-    <ImageView
-        android:id="@+id/img_back"
-        style="@style/img_nav"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/pg_back" />
+    <RelativeLayout
+        android:id="@+id/box_title"
+        android:background="@color/header_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:id="@+id/tex_my_title"
-        style="@style/tex_title"
-        android:text="发布内容" />
+        <ImageView
+            android:id="@+id/img_back"
+            style="@style/img_nav"
+            android:src="@drawable/pg_back" />
+
+        <TextView
+            android:id="@+id/tex_title"
+            style="@style/tex_title"
+            android:gravity="center_horizontal"
+            android:text="发布内容" />
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/felling"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tex_my_title"
+        android:layout_below="@+id/box_title"
         android:background="#ffffff"
         android:hint="说点什么吧~"
         android:textColorHint="#aaaaaa" />

@@ -27,6 +27,10 @@ public class Get_Author extends Helper_GetUrl {
         super(tx);
     }
 
+    public Get_Author(Context ctx) {
+        super(ctx);
+    }
+
     public Get_Author(Context ctx, ListView lis) {
         super(ctx, lis);
     }
@@ -54,21 +58,26 @@ public class Get_Author extends Helper_GetUrl {
                 this.authors.add(new Author(j_b.getString("name"), j_b.getString("desc")));
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.ctx, R.layout.support_simple_spinner_dropdown_item, author_list);
-            this.myLis.setAdapter(adapter);
+            if (this.myLis != null) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.ctx, R.layout.support_simple_spinner_dropdown_item, author_list);
+                this.myLis.setAdapter(adapter);
 
-            this.myLis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.i("itemClick", id + "Click!");
-                    Intent mIntent = new Intent(ctx, activity_poet_info.class);
-                    mIntent.putExtra("name", authors.get((int) id).getName());
-                    mIntent.putExtra("desc", authors.get((int) id).getDesc());
-                    ctx.startActivity(mIntent);
-                }
-            });
-
-
+                this.myLis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.i("itemClick", id + "Click!");
+                        Intent mIntent = new Intent(ctx, activity_poet_info.class);
+                        mIntent.putExtra("name", authors.get((int) id).getName());
+                        mIntent.putExtra("desc", authors.get((int) id).getDesc());
+                        ctx.startActivity(mIntent);
+                    }
+                });
+            } else {
+                Intent mIntent = new Intent(ctx, activity_poet_info.class);
+                mIntent.putExtra("name", authors.get(0).getName());
+                mIntent.putExtra("desc", authors.get(0).getDesc());
+                ctx.startActivity(mIntent);
+            }
         } catch (Exception e) {
             Log.i("json", e.getMessage());
         }

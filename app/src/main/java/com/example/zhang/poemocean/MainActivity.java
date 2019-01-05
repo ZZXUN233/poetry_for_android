@@ -21,22 +21,32 @@ import android.widget.AdapterView;
 import android.widget.AdapterViewFlipper;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.zhang.poemocean.Adapter.Adapter_filpper;
 import com.example.zhang.poemocean.Class.Poem;
+import com.example.zhang.poemocean.Db.Db_comment;
+import com.example.zhang.poemocean.Db.Db_poems;
 import com.example.zhang.poemocean.Db.Db_readed;
+import com.example.zhang.poemocean.Db.Db_user;
 import com.example.zhang.poemocean.Helper.MyConfig;
 import com.example.zhang.poemocean.Url.Get_Random_one;
 import com.example.zhang.poemocean.activity.activity_collections;
+import com.example.zhang.poemocean.activity.activity_comments;
 import com.example.zhang.poemocean.activity.activity_poemList;
 import com.example.zhang.poemocean.activity.activity_poem_detail;
+import com.example.zhang.poemocean.activity.activity_setting;
+import com.example.zhang.poemocean.person_page.Homepage;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -88,8 +98,12 @@ public class MainActivity extends Activity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        init();
-        initLogs();
+        try {
+            init();
+            initLogs();
+        } catch (Exception e) {
+            Log.i("main init", e.toString());
+        }
     }
 
 
@@ -110,27 +124,44 @@ public class MainActivity extends Activity
     private void initLogs() {
         readLog = new Db_readed(this);
         final ArrayList<Poem> readeds = readLog.getAllRecords();
-        ArrayList<String> poem_headers = new ArrayList<String>();
+        String[] from = {"title", "authors"};
+        int[] to = {R.id.item_poem_title, R.id.item_poem_author};
+        List<Map<String, Object>> date = new ArrayList<Map<String, Object>>();
         if (readeds.size() == 0) {
-            poem_headers.add("还没有最近的阅读记录！你可以点击搜索按钮进行内容索引！");
+            HashMap<String, Object> temp = new HashMap<String, Object>();
+            temp.put("title", "没有最近阅读记录！");
+            temp.put("authors", "点击放大镜按钮开始检索内容！");
+            date.add(temp);
+        } else {
+            for (Poem tem : readeds) {
+                HashMap<String, Object> temp = new HashMap<String, Object>();
+                temp.put("title", tem.getTitle());
+                temp.put("authors", tem.getAuthors());
+                date.add(temp);
+            }
         }
-        for (int i = 0; i < readeds.size(); i++) {
-            poem_headers.add(readeds.get(i).getHead());
-        }
-        ArrayAdapter<String> readed_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, poem_headers);
-        lis_readLogs.setAdapter(readed_adapter);
+
+        SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, date, R.layout.item_poem_list, from, to);
+        lis_readLogs.setAdapter(adapter);
+
         lis_readLogs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("itemClick", id + "Click!");
                 Intent mIntent = new Intent(MainActivity.this, activity_poem_detail.class);
-                mIntent.putExtra("title", readeds.get((int) id).getTitle());
-                mIntent.putExtra("authors", readeds.get((int) id).getAuthors());
-                mIntent.putExtra("content", readeds.get((int) id).getContent());
-                startActivity(mIntent);
-                readLog.close();
+                try {
+                    mIntent.putExtra("title", readeds.get((int) id).getTitle());
+                    mIntent.putExtra("authors", readeds.get((int) id).getAuthors());
+                    mIntent.putExtra("content", readeds.get((int) id).getContent());
+                    startActivity(mIntent);
+                    readLog.close();
+                } catch (Exception e) {
+                    Log.i("mainActivity", "readed log failed");
+                }
             }
         });
+
+
     }
 
     @Event(R.id.reload)
@@ -186,19 +217,14 @@ public class MainActivity extends Activity
         int id = item.getItemId();
 
         if (id == R.id.nav_personal_info) {
-            // Handle the camera action
+            startActivity(new Intent(MainActivity.this, Homepage.class));
         } else if (id == R.id.nav_collections) {
             startActivity(new Intent(MainActivity.this, activity_collections.class));
         } else if (id == R.id.nav_comments) {
-
+            startActivity(new Intent(MainActivity.this, activity_comments.class));
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(MainActivity.this, activity_setting.class));
         }
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

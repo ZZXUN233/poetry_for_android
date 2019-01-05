@@ -48,6 +48,10 @@ public class Helper_GetUrl extends AsyncTask<String, Void, String> {
     }
 
 
+    public Helper_GetUrl(Context ctx) {
+        this.ctx = ctx;
+    }
+
     //后台执行的线程，获取网络资源
     @Override
     protected String doInBackground(String... arg0) {

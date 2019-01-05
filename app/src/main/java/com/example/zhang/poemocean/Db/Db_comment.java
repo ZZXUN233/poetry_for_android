@@ -14,14 +14,15 @@ import com.example.zhang.poemocean.Class.Poem;
 import java.util.ArrayList;
 
 
-public class Db_comment extends Db_main {
+public class Db_comment extends SQLiteOpenHelper {
 
     private SQLiteDatabase mydb;
+    private static final String BASE_NAME = "comments.db";
     private static final String _TABLE = "comments";
 
 
     public Db_comment(Context ctx) {
-        super(ctx);
+        super(ctx, BASE_NAME, null, 1);
     }
 
     @Override
@@ -126,6 +127,40 @@ public class Db_comment extends Db_main {
                         cursor.getString(cursor.getColumnIndex("feelid")),
                         cursor.getString(cursor.getColumnIndex("content")),
                         cursor.getString(cursor.getColumnIndex("iflike")), thePoem
+                ));
+            }
+            cursor.close();
+            return theComments;
+        }
+    }
+
+    public ArrayList<Comments> GetAllComents() {
+        ArrayList<Comments> theComments = new ArrayList<Comments>();
+        mydb = getReadableDatabase();
+        Cursor cursor = mydb.query(_TABLE, null, null, null, null, null, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return theComments;
+        } else {
+            cursor.moveToFirst();
+            theComments.add(new Comments(
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getString(cursor.getColumnIndex("feelid")),
+                    cursor.getString(cursor.getColumnIndex("content")),
+                    cursor.getString(cursor.getColumnIndex("iflike")),
+                    new Poem(cursor.getString(cursor.getColumnIndex("poem_title")),
+                            cursor.getString(cursor.getColumnIndex("poem_author")),
+                            cursor.getString(cursor.getColumnIndex("poem_content")))
+            ));
+            while (cursor.moveToNext()) {
+                theComments.add(new Comments(
+                        cursor.getString(cursor.getColumnIndex("title")),
+                        cursor.getString(cursor.getColumnIndex("feelid")),
+                        cursor.getString(cursor.getColumnIndex("content")),
+                        cursor.getString(cursor.getColumnIndex("iflike")),
+                        new Poem(cursor.getString(cursor.getColumnIndex("poem_title")),
+                                cursor.getString(cursor.getColumnIndex("poem_author")),
+                                cursor.getString(cursor.getColumnIndex("poem_content")))
                 ));
             }
             cursor.close();

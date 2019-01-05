@@ -10,10 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -28,12 +25,12 @@ import com.example.zhang.poemocean.Db.Db_comment;
 import com.example.zhang.poemocean.Db.Db_poems;
 import com.example.zhang.poemocean.Helper.MyConfig;
 import com.example.zhang.poemocean.R;
+import com.example.zhang.poemocean.Url.Get_Author;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,10 +57,10 @@ public class activity_poem_detail extends Activity {
 
     private Poem getPoem;
 
-    private Db_poems myCollections;
 
     private boolean ifLiked = false;
 
+    private Db_poems myCollections;
     public Dialog pub_comment;
     private Db_comment myComment;
 
@@ -76,13 +73,6 @@ public class activity_poem_detail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.poem_detail);
         x.view().inject(this);
-        init();
-        initDialog();
-
-    }
-
-    private void init() {
-        //初始化配置，数据库
         myConfig = new MyConfig(this);
         myCollections = new Db_poems(this);
         myComment = new Db_comment(this);
@@ -93,6 +83,14 @@ public class activity_poem_detail extends Activity {
                 mIntent.getStringExtra("authors"),
                 mIntent.getStringExtra("content"));
 
+        init();
+        initDialog();
+
+    }
+
+    private void init() {
+        //初始化配置，数据库
+
 
         //初始化诗歌的评论
         initLisComments();
@@ -102,6 +100,9 @@ public class activity_poem_detail extends Activity {
             Log.i("details", "已经收藏的诗歌");
             img_like.setImageResource(R.drawable.pg_heart_chosed);
             ifLiked = true;
+        } else {
+            img_like.setImageResource(R.drawable.pg_heart);
+            ifLiked = false;
         }
 
         title.setTypeface(myConfig.getTf());
@@ -120,22 +121,45 @@ public class activity_poem_detail extends Activity {
 
     private void initLisComments() {
         ArrayList<Comments> getCommentsByPoem = myComment.getCommentByPoem(getPoem);
-        ArrayList<String> headers = new ArrayList<String>();
+
+        String[] from = {"emojiId", "title", "comment"};
+        int[] to = {R.id.img_emoji_item, R.id.item_title, R.id.item_comment};
+        TypedArray meojiIds = getResources().obtainTypedArray(R.array.emojis);
+        List<Map<String, Object>> comments = new ArrayList<Map<String, Object>>();
+
         if (getCommentsByPoem.size() == 0) {
-            headers.add("还没有感想，你可以发表自己的感想！");
-        } else
+            HashMap<String, Object> temp = new HashMap<String, Object>();
+            temp.put("emojiId", R.drawable.emoji_10);
+            temp.put("title", "还没有人发表感想");
+            temp.put("comment", "少侠，何不留下你的感想！");
+            comments.add(temp);
+        } else {
             for (Comments tem : getCommentsByPoem) {
-                headers.add(tem.getHeader());
+                HashMap<String, Object> temp = new HashMap<String, Object>();
+                temp.put("emojiId", meojiIds.getResourceId(Integer.valueOf(tem.getFeelid()), 0));
+                temp.put("title", tem.getTitle());
+                temp.put("comment", tem.getContent());
+                comments.add(temp);
             }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, headers);
-        lis_comments.setAdapter(adapter);
+        }
+        lis_comments.setAdapter(new SimpleAdapter(this, comments, R.layout.item_comments, from, to));
+
+//        ArrayList<String> headers = new ArrayList<String>();
+//        if (getCommentsByPoem.size() == 0) {
+//            headers.add("还没有感想，你可以发表自己的感想！");
+//        } else
+//            for (Comments tem : getCommentsByPoem) {
+//                headers.add(tem.getHeader());
+//            }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, headers);
+//        lis_comments.setAdapter(adapter);
     }
 
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        initLisComments();
+        init();
     }
 
     private void initDialog() {
@@ -153,6 +177,14 @@ public class activity_poem_detail extends Activity {
                 final TextView tex_content = dialog_view.findViewById(R.id.speech_content);
                 Button btn_pub = dialog_view.findViewById(R.id.btn_pub);
                 Button btn_cancel = dialog_view.findViewById(R.id.btn_cancel);
+
+                //init switch
+
+                if (myCollections.queryOne(getPoem) != -1) {
+                    sw_iflike.setChecked(true);
+                } else {
+                    sw_iflike.setChecked(false);
+                }
 
                 //init spinner
                 String[] from = {"imgId"};
@@ -185,23 +217,38 @@ public class activity_poem_detail extends Activity {
                 btn_pub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String title = tex_title.getText().toString();
+                        String content = tex_content.getText().toString();
+                        boolean result = false;
                         Log.i("btn_pub", "clicked!");
-                        if (sw_iflike.isChecked()) iflike = "1";
-                        else {
+                        if (sw_iflike.isChecked()) {
+                            myCollections.insert(getPoem);
+                            iflike = "1";
+
+                        } else {
                             iflike = "0";
+                            myCollections.delOne(getPoem);
                         }
-                        boolean result = myComment.insert(new Comments(
-                                tex_title.getText().toString(), feelsId,
-                                tex_content.getText().toString(), iflike, getPoem));
+                        if (title.length() > 0 && content.length() > 0) {
+                            result = myComment.insert(new Comments(
+                                    tex_title.getText().toString(), feelsId,
+                                    tex_content.getText().toString(), iflike, getPoem));
+                        } else {
+                            Toast.makeText(activity_poem_detail.this, "必须输入标题和内容！", Toast.LENGTH_SHORT).show();
+                        }
                         if (result) {
-                            pub_comment.cancel();
+                            tex_title.setText("");
+                            tex_content.setText("");
+                            pub_comment.dismiss();
                         }
                     }
                 });
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        pub_comment.cancel();
+                        tex_title.setText("");
+                        tex_content.setText("");
+                        pub_comment.dismiss();
                     }
                 });
             }
@@ -222,7 +269,6 @@ public class activity_poem_detail extends Activity {
                 img_like.setImageResource(R.drawable.pg_heart_chosed);
                 Toast.makeText(this, "收藏成功！", Toast.LENGTH_SHORT).show();
                 ifLiked = true;
-
             } else {
                 myCollections.delOne(this.getPoem);
                 ifLiked = false;
@@ -235,6 +281,12 @@ public class activity_poem_detail extends Activity {
         } finally {
             myCollections.close();
         }
+    }
+
+    @Event(R.id.img_poet_info)
+    private void show_poet_info(View view) {
+        new Get_Author(activity_poem_detail.this).execute(MyConfig.URLSEARCH_BY_AUTHOR_NAME + getPoem.getAuthors());
+
     }
 
     @Event(R.id.img_back)

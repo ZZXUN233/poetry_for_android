@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer-array name="emojis">
-        <item>@drawable/emoji_1</item>
+        <item>@drawable/emoji_10</item>
         <item>@drawable/emoji_2</item>
         <item>@drawable/emoji_3</item>
         <item>@drawable/emoji_4</item>
@@ -10,6 +10,6 @@
         <item>@drawable/emoji_7</item>
         <item>@drawable/emoji_8</item>
         <item>@drawable/emoji_9</item>
-        <item>@drawable/emoji_10</item>
+        <item>@drawable/emoji_1</item>
     </integer-array>
 </resources>

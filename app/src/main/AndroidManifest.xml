@@ -30,6 +30,11 @@
         <activity android:name=".activity.activity_poem_detail" />
         <activity android:name=".activity.activity_poet_info" />
         <activity android:name=".activity.activity_collections" />
+        <activity android:name=".person_page.Homepage" />
+        <activity android:name=".person_page.Publish" />
+        <activity android:name=".activity.activity_setting" />
+        <activity android:name=".activity.activity_comments" />
+        <activity android:name=".activity.activity_register" />
     </application>
 
 </manifest>

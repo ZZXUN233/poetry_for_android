@@ -5,26 +5,84 @@
 
     <!-- 上侧背景 -->
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/ink_flower2" />
+    <RelativeLayout
+        android:id="@+id/box_title"
+        android:layout_width="match_parent"
+        android:background="#dfdfdf"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/img_edit"
+            style="@style/img_nav"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/pg_edit" />
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/img_nav"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/pg_back" />
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="张三"
+            android:textColor="@color/btn_tex"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/box_head"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="收藏\n23456"
+                android:textColor="@color/btn_tex" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="感想\n3456"
+                android:textColor="@color/btn_tex" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="创作\n456"
+                android:textColor="@color/btn_tex" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <!-- 返回按钮 -->
-    <ImageView
-        android:id="@+id/back"
-        style="@style/img_nav"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/pg_back" />
 
-    <ImageView
-        style="@style/img_nav"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/pg_edit" />
     <!--
         我的主页标题
 
@@ -38,67 +96,17 @@
 
     <!-- 头像 -->
 
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/logo" />
-
     <!-- 名字 -->
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:text="张三"
-        android:textColor="#ffffff"
-        android:textSize="15sp" />
 
     <!-- 粉丝、关注、作品 -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="收藏\n23456"
-            android:textColor="@color/btn_tex" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="感想\n3456"
-            android:textColor="@color/btn_tex" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="创作\n456"
-            android:textColor="@color/btn_tex" />
-
-    </LinearLayout>
 
     <ListView
         android:id="@+id/lis_pub"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/background"
-        android:layout_margin="10dp">
+        android:layout_below="@+id/box_title"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp">
 
     </ListView>
 

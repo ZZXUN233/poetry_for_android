@@ -3,6 +3,7 @@ package com.example.zhang.poemocean.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.zhang.poemocean.Class.Author;
@@ -45,6 +46,12 @@ public class activity_poet_info extends Activity {
 
         tex_author_desc.setTypeface(myConfig.getTf());
         tex_author_desc.setText(getAuthor.getDesc());
+
+    }
+
+    @Event(R.id.img_back)
+    private void go_back(View view) {
+        finish();
 
     }
 }

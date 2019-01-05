@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#bfbfbf">
 
     <LinearLayout
-        android:id="@+id/box1"
+        android:id="@+id/box_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -27,7 +28,7 @@
         android:id="@+id/box2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/box1"
+        android:layout_below="@+id/box_title"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
@@ -96,33 +97,36 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:background="@drawable/shape_input"
             android:gravity="top"
             android:inputType="textMultiLine"
+            android:lineSpacingExtra="4dp"
             android:minLines="5"
             android:padding="@dimen/pd_5" />
 
         <RelativeLayout
+            android:layout_marginTop="@dimen/pd_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn_pub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
-                android:text="发布"
+                android:background="@drawable/pg_comfirm"
                 android:textColor="@color/btn_tex" />
 
             <Button
                 android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
-                android:text="取消"
+                android:background="@drawable/pg_cancel"
                 android:textColor="@color/btn_tex" />
         </RelativeLayout>
 

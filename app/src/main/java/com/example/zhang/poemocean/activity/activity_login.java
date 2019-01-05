@@ -34,7 +34,7 @@ public class activity_login extends Activity {
     private TextView register;
     @ViewInject(R.id.forget_pass)
     private TextView forget_pass;
-    @ViewInject(R.id.btn_login)
+    @ViewInject(R.id.btn_register)
     private Button btn_login;
 
     @ViewInject(R.id.cb_remember_pass)
@@ -50,6 +50,7 @@ public class activity_login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         x.view().inject(this);
+
         user_db = new Db_user(this);
         myConfig = new MyConfig(this);
         user_db.getReadableDatabase();
@@ -91,7 +92,7 @@ public class activity_login extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_login: {  //登录按钮
+                case R.id.btn_register: {  //登录按钮
                     Intent mIntent = new Intent(v.getContext(), MainActivity.class);
                     String s_account = account.getText().toString();
                     String s_password = password.getText().toString();
@@ -128,6 +129,7 @@ public class activity_login extends Activity {
                     break;
                 case R.id.register:  //注册用户
                     makeToast("注册用户！");
+                    startActivity(new Intent(activity_login.this, activity_register.class));
                     break;
                 case R.id.eye_check: {  //显示密码
                     if (eyeChecked == 1) {//

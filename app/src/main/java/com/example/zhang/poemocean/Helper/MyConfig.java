@@ -18,6 +18,7 @@ public class MyConfig {
     public int NUM_LIS_PAGES = 123;
     public static int NUM_LIS_COUNT = 60;
     public int NUM_FIRST_PAGE_LIST = 10;
+    public int NUM_SEARCH_LENGTH = 20;
 
 
     public static final String URL_SINGLE_LINE = "https://api.apiopen.top/singlePoetry";

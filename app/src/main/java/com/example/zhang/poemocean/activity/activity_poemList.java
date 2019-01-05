@@ -66,7 +66,9 @@ public class activity_poemList extends Activity {
         item_chose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int page = (int) ((Math.random() * 9 + 1) * 100);
+//                int page = (int) ((Math.random() * 9 + 1) * 100);
+                int page = 10;
+                page = myConfig.NUM_SEARCH_LENGTH;
                 switch ((int) id) {
                     case 0://模糊搜索
                         new Get_Poem_Lis(activity_poemList.this, poem_list).execute(MyConfig.getUrlPoemList(page));
@@ -108,7 +110,6 @@ public class activity_poemList extends Activity {
         }
         switch (item_chosed) {
             case 0://模糊搜索
-
                 new Get_Poem_Lis(activity_poemList.this, poem_list).execute(MyConfig.URL_SEARCH_LIKE + input);
                 break;
             case 1://诗经搜索

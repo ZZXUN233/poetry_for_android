@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.zhang.poemocean.R;
 
+import org.xutils.view.annotation.Event;
 import org.xutils.x;
 
 public class activity_setting extends Activity {
@@ -24,5 +26,10 @@ public class activity_setting extends Activity {
     private void parseSettings() {
         SharedPreferences.Editor sp = getSharedPreferences("settings", Context.MODE_PRIVATE).edit();
 
+    }
+
+    @Event(R.id.img_back)
+    private void GoBack(View view) {
+        finish();
     }
 }

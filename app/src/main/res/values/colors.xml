@@ -21,4 +21,6 @@
     <color name="tex_white">#ffffff</color>
     <color name="bg_main">#dfdfdf</color>
 
+    <color name="header_main">#7f7f7f</color>
+
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/box_title"
+        android:layout_width="match_parent"
+        android:background="@color/header_main"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/img_back"
+            style="@style/img_nav"
+            android:src="@drawable/pg_back" />
+
+        <TextView
+            android:id="@+id/setting"
+            style="@style/tex_title"
+            android:gravity="center_horizontal"
+            android:text="我的感想" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list_comments"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/box_title"
+        android:layout_margin="5dp"></ListView>
+</RelativeLayout>

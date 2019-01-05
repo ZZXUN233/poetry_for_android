@@ -7,6 +7,7 @@ public class Comments {
     private String iflike;
 
     private Poem thePoem;
+    private int UserId;
 
     public Comments(String title, String feelid, String content, String iflike, Poem thePoem) {
         this.title = title;
@@ -14,6 +15,14 @@ public class Comments {
         this.content = content;
         this.iflike = iflike;
         this.thePoem = thePoem;
+
+    }
+
+    public Comments(String title, String feelid, String content, String iflike) {
+        this.title = title;
+        this.feelid = feelid;
+        this.content = content;
+        this.iflike = iflike;
 
     }
 

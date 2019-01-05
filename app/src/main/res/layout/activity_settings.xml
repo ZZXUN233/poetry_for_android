@@ -1,58 +1,235 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f8f8fa">
+    android:background="#f8f8f8"
+    android:orientation="vertical">
 
-    <!-- 设置 -->
 
-    <ImageView
-        android:id="@+id/set_back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/pg_back" />
-
-    <TextView
-        android:id="@+id/setting"
+    <RelativeLayout
+        android:id="@+id/box_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center_horizontal"
-        android:text="设置"
-        android:textSize="20sp" />
+        android:layout_alignParentTop="true"
+        android:background="@color/header_main">
 
-    <ImageView
-        android:id="@+id/underline"
+        <ImageView
+            android:id="@+id/img_back"
+            style="@style/img_nav"
+            android:src="@drawable/pg_back" />
+
+        <TextView
+            style="@style/tex_title"
+            android:gravity="center_horizontal"
+            android:text="设置" />
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+    <!--style="@style/white_back"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/back"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="60dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/title"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="设置"-->
+    <!--android:textColor="#4e4e4e"-->
+    <!--android:textSize="30sp" />-->
+
+    <!--</RelativeLayout>-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/setting"
-        android:layout_marginBottom="20dp"
-        android:background="#d3d3d3" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
 
-    <ListView
-        android:id="@+id/lis_pub"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/underline"
-        android:layout_marginBottom="20dp"
-        android:background="#ffffff"></ListView>
+        <View style="@style/setting_line" />
 
-    <ListView
-        android:id="@+id/listview1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lis_pub"
-        android:layout_marginBottom="20dp"
-        android:background="#ffffff"></ListView>
+        <View
+            style="@style/setting_line"
+            android:layout_marginTop="20dp" />
 
-    <ListView
-        android:id="@+id/listview2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listview1"
-        android:layout_marginBottom="20dp"
-        android:background="#ffffff"></ListView>
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_padlock" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:layout_weight="8"
+                android:text="修改密码"
+                android:textSize="25sp" />
+
+            <ImageView
+                style="@style/setting_img"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_gray_left_array" />
+        </LinearLayout>
+
+        <View style="@style/setting_line" />
+
+        <View
+            style="@style/setting_line"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_garbage" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:layout_weight="4"
+                android:paddingRight="5dp"
+                android:text="清除缓存" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="15.2M"
+                android:textColor="#323232"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/setting_line"
+            android:layout_marginLeft="45dp" />
+
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_update" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:layout_weight="2"
+                android:text="检查更新" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="版本信息"
+                android:textColor="#d3d3d3"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <View style="@style/setting_line" />
+
+        <View
+            style="@style/setting_line"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_user" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:text="关于我们"
+                android:textSize="25sp" />
+
+            <ImageView
+                style="@style/setting_img"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_gray_left_array" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/setting_line"
+            android:layout_marginLeft="45dp" />
+
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_telephone" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:text="联系我们"
+                android:textSize="25sp" />
+
+            <ImageView
+                style="@style/setting_img"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_gray_left_array" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/setting_line"
+            android:layout_marginLeft="45dp" />
+
+        <LinearLayout
+            style="@style/white_back"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/setting_img"
+                android:background="@drawable/pg_edit" />
+
+            <TextView
+                style="@style/setting_tex"
+                android:text="提供反馈"
+                android:textSize="25sp" />
+
+            <ImageView
+                style="@style/setting_img"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_gray_left_array" />
+
+        </LinearLayout>
+
+        <View style="@style/setting_line" />
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
