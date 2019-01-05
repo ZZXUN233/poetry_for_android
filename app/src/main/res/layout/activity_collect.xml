@@ -4,21 +4,17 @@
 
     <ImageView
         android:id="@+id/img_back"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="12dp"
+        style="@style/img_nav"
         android:clickable="true"
         android:src="@drawable/pg_back" />
 
     <TextView
         android:id="@+id/collect"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        style="@style/tex_title"
+        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:text="我的收藏"
-        android:textColor="@color/tex_tag"
-        android:textSize="18sp" />
+        android:textColor="@color/tex_tag" />
 
     <ListView
         android:id="@+id/list_collections"

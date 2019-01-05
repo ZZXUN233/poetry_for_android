@@ -16,7 +16,7 @@
             android:src="@drawable/pg_back" />
 
         <TextView
-            android:id="@+id/tex_title"
+            android:id="@+id/tex_my_title"
             style="@style/tex_title"
             android:text="作者详情" />
 

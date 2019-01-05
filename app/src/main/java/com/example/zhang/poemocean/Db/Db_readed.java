@@ -3,6 +3,7 @@ package com.example.zhang.poemocean.Db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.zhang.poemocean.Class.Poem;
@@ -12,11 +13,12 @@ import java.util.ArrayList;
 public class Db_readed extends Db_poems {
 
 
-    private static final String _BASENAME = "myReaded.db";
     private static final String _TABLE = "myPoems";
+    private static final String DB_NAME = "readLog.db";
+    private SQLiteDatabase mydb;
 
     public Db_readed(Context context) {
-        super(context, _BASENAME);
+        super(context, DB_NAME);
     }
 
     @Override
@@ -33,10 +35,10 @@ public class Db_readed extends Db_poems {
 
     @Override
     public ArrayList<Poem> getAllRecords() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        mydb = this.getReadableDatabase();
         ArrayList<Poem> AllPoems = new ArrayList<Poem>();
 
-        Cursor cursor = db.query(_TABLE,
+        Cursor cursor = mydb.query(_TABLE,
                 null, null, null, null, null, null);
         if (cursor.getCount() <= 0) {
             cursor.close();

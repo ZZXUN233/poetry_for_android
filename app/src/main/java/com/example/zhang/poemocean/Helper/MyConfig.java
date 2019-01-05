@@ -1,6 +1,7 @@
 package com.example.zhang.poemocean.Helper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
 import com.example.zhang.poemocean.Url.Get_Random_one;

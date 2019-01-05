@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f8fa">
+
+    <!-- 设置 -->
+
+    <ImageView
+        android:id="@+id/set_back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/pg_back" />
+
+    <TextView
+        android:id="@+id/setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="设置"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/underline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/setting"
+        android:layout_marginBottom="20dp"
+        android:background="#d3d3d3" />
+
+    <ListView
+        android:id="@+id/lis_pub"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/underline"
+        android:layout_marginBottom="20dp"
+        android:background="#ffffff"></ListView>
+
+    <ListView
+        android:id="@+id/listview1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lis_pub"
+        android:layout_marginBottom="20dp"
+        android:background="#ffffff"></ListView>
+
+    <ListView
+        android:id="@+id/listview2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listview1"
+        android:layout_marginBottom="20dp"
+        android:background="#ffffff"></ListView>
+
+
+</RelativeLayout>

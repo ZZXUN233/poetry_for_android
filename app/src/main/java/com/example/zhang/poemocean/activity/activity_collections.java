@@ -42,8 +42,12 @@ public class activity_collections extends Activity {
         if (myPoems.size() == 0) {
             poem_heads.add("还没有收藏，请进入诗歌详情收藏!");
         } else {
-            for (Poem tem : myPoems) {
-                poem_heads.add(tem.getHead());
+//            for (Poem tem : myPoems) {
+//                poem_heads.add(tem.getHead());
+//            }
+            for (int i = myPoems.size() - 1; i >= 0; i--) {
+                poem_heads.add(myPoems.get(i).getHead());
+
             }
         }
         ArrayAdapter<String> collections = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, poem_heads);
@@ -60,6 +64,12 @@ public class activity_collections extends Activity {
             }
         });
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        init();
     }
 
     @Event(R.id.img_back)
