@@ -1,9 +1,12 @@
 package com.example.zhang.poemocean.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +15,7 @@ import android.widget.SimpleAdapter;
 import com.example.zhang.poemocean.Class.Comments;
 import com.example.zhang.poemocean.Db.Db_comment;
 import com.example.zhang.poemocean.R;
+import com.example.zhang.poemocean.person_page.Homepage;
 
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -62,18 +66,26 @@ public class activity_comments extends Activity {
                 comments.add(temp);
             }
         }
-        list_comments.setAdapter(new SimpleAdapter(this, comments, R.layout.item_comments, from, to));
+        final SimpleAdapter adapter = new SimpleAdapter(this, comments, R.layout.item_comments, from, to);
+        list_comments.setAdapter(adapter);
 
         list_comments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent mIntent = new Intent(activity_comments.this, activity_poem_detail.class);
-                mIntent.putExtra("title", getCommentsAll.get((int) id).getThePoem().getTitle());
-                mIntent.putExtra("authors", getCommentsAll.get((int) id).getThePoem().getAuthors());
-                mIntent.putExtra("content", getCommentsAll.get((int) id).getThePoem().getContent());
-                startActivity(mIntent);
+                try {
+
+                    mIntent.putExtra("title", getCommentsAll.get((int) id).getThePoem().getTitle());
+                    mIntent.putExtra("authors", getCommentsAll.get((int) id).getThePoem().getAuthors());
+                    mIntent.putExtra("content", getCommentsAll.get((int) id).getThePoem().getContent());
+                    startActivity(mIntent);
+                } catch (Exception e) {
+                    Log.i("comments", "new activity!");
+                }
             }
         });
+
+
 
 //        ArrayList<String> headers = new ArrayList<String>();
 //        if (getCommentsByPoem.size() == 0) {

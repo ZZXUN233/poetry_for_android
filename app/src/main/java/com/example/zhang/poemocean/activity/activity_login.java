@@ -44,6 +44,7 @@ public class activity_login extends Activity {
 
     private Db_user user_db;
     private MyConfig myConfig;
+    private boolean if_new = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,14 @@ public class activity_login extends Activity {
 
         user_db = new Db_user(this);
         myConfig = new MyConfig(this);
-        user_db.getReadableDatabase();
+
+        if (getIntent().getStringExtra("account") != null) {
+            if_new = true;
+            account.setText(getIntent().getStringExtra("account"));
+            password.setText(getIntent().getStringExtra("pwd"));
+        }
         init();
+
     }
 
     private void init() {
@@ -82,8 +89,10 @@ public class activity_login extends Activity {
 //            startActivity(mIntent);
 //            finish();
         }
-        account.setText(s_account);
-        password.setText(s_pwd);
+        if (!if_new) {
+            account.setText(s_account);
+            password.setText(s_pwd);
+        }
 
     }
 
@@ -99,13 +108,22 @@ public class activity_login extends Activity {
 
                     SharedPreferences.Editor sp = getSharedPreferences("user", Context.MODE_PRIVATE).edit();
 
+                    if (!user_db.ifNameUsed(s_account)) {
+                        makeToast("未注册的用户！去注册用户！");
+                        Intent newIntent = new Intent(activity_login.this, activity_register.class);
+                        newIntent.putExtra("account", s_account);
+                        startActivity(newIntent);
+
+                    }
+
                     if (s_account.length() < 1 || s_password.length() < 1) {
                         Toast.makeText(activity_login.this, "请输入账号和密码！", Toast.LENGTH_LONG).show();
 
                     } else {
-                        if (s_account.contentEquals("zzx") && s_password.equals("123")) {
+                        if (user_db.ifPwdEqual(s_account, s_password)) {
                             Toast.makeText(activity_login.this, "登录成功！\nWelcome !" + s_account, Toast.LENGTH_LONG).show();
                             if (cb_save.isChecked()) {
+                                if_new = false;
                                 sp.putString("account", s_account);
                                 sp.putString("pwd", s_password);
 
@@ -114,11 +132,9 @@ public class activity_login extends Activity {
                                 sp.putString("pwd", "");
                             }
                             sp.commit();
-
                             startActivity(mIntent);
                             finish();
                         } else {
-
                             Toast.makeText(activity_login.this, "密码或用户名错误！", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -130,6 +146,7 @@ public class activity_login extends Activity {
                 case R.id.register:  //注册用户
                     makeToast("注册用户！");
                     startActivity(new Intent(activity_login.this, activity_register.class));
+                    finish();
                     break;
                 case R.id.eye_check: {  //显示密码
                     if (eyeChecked == 1) {//

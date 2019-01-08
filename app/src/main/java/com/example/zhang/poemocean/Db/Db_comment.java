@@ -11,6 +11,8 @@ import android.util.Log;
 import com.example.zhang.poemocean.Class.Comments;
 import com.example.zhang.poemocean.Class.Poem;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
 
 
@@ -132,6 +134,20 @@ public class Db_comment extends SQLiteOpenHelper {
             cursor.close();
             return theComments;
         }
+    }
+
+    public int delOne(Comments theComment) {
+        mydb = getWritableDatabase();
+        int result = 0;
+        try {
+            result = mydb.delete(_TABLE, "title=? and feelid=? and content=?",
+                    new String[]{theComment.getTitle(), theComment.getFeelid(), theComment.getContent()});
+        } catch (Exception e) {
+            Log.i("Db", e.toString());
+        } finally {
+            return result;
+        }
+
     }
 
     public ArrayList<Comments> GetAllComents() {

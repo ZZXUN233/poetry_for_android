@@ -63,20 +63,24 @@ public class Get_Poem_Lis extends Helper_GetUrl {
                 this.Poems.add(tem);
                 poem_list.add(temp);
             }
-
-            if (poem_list.size() == 0) {
-                poem_list.add("没有找到相关内容！");
-            }
-
             String[] from = {"title", "authors"};
             int[] to = {R.id.item_poem_title, R.id.item_poem_author};
             List<Map<String, Object>> date = new ArrayList<Map<String, Object>>();
-            for (Poem tem : this.Poems) {
+            if (poem_list.size() == 0) {
+                poem_list.add("没有找到相关内容！");
                 HashMap<String, Object> temp = new HashMap<String, Object>();
-                temp.put("title", tem.getTitle());
-                temp.put("authors", tem.getAuthors());
+                temp.put("title", "没有找到相关内容！");
+                temp.put("authors", "");
                 date.add(temp);
+            } else {
+                for (Poem tem : this.Poems) {
+                    HashMap<String, Object> temp = new HashMap<String, Object>();
+                    temp.put("title", tem.getTitle());
+                    temp.put("authors", tem.getAuthors());
+                    date.add(temp);
+                }
             }
+
             SimpleAdapter adapter = new SimpleAdapter(this.ctx, date, R.layout.item_poem_list, from, to);
             this.myLis.setAdapter(adapter);
 

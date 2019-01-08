@@ -13,10 +13,12 @@ import com.example.zhang.poemocean.Class.User;
 public class Db_user extends Db_main {
 
     private SQLiteDatabase mydb;
+    //    private static final String DB_NAME = "users.db";
     private String _TABLE = "Users";
 
 
     public Db_user(Context context) {
+//        super(context, DB_NAME, null, 1);
         super(context);
 
     }
@@ -27,7 +29,7 @@ public class Db_user extends Db_main {
         Log.i("db_version", version + "");
         try {
 
-            db.execSQL("create table user (" +
+            db.execSQL("create table Users (" +
                     "id integer primary key autoincrement," +
                     "account text," +
                     "pwd text," +
@@ -70,7 +72,7 @@ public class Db_user extends Db_main {
 
     public boolean ifNameUsed(String name) {
         mydb = getReadableDatabase();
-        Cursor cursor = mydb.query(_TABLE, new String[]{"name"}, "name = ?",
+        Cursor cursor = mydb.query(_TABLE, new String[]{"account"}, "account = ?",
                 new String[]{name}, null, null, null);
         if (cursor.getCount() != 0) {
             return true;
@@ -90,13 +92,16 @@ public class Db_user extends Db_main {
         }
     }
 
-    public boolean ifPwdEqual(String name, String pwd) {
+    public boolean ifPwdEqual(String account, String pwd) {
+        Log.i("Db User", "查询用户与密码是否匹配！");
         mydb = getReadableDatabase();
-        Cursor cursor = mydb.query(_TABLE, new String[]{"pwd"}, "name = ?",
-                new String[]{name}, null, null, null);
+        Cursor cursor = mydb.query(_TABLE, new String[]{"pwd"}, "account = ?",
+                new String[]{account}, null, null, null);
         if (cursor.getCount() != 0) {
+            Log.i("Db User", cursor.getCount() + "");
             cursor.moveToFirst();
             String savedPwd = cursor.getString(cursor.getColumnIndex("pwd"));
+            Log.i("saved pwd", savedPwd);
             if (pwd.equals(savedPwd)) {
                 return true;
             } else {

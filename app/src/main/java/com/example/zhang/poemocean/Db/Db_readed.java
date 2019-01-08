@@ -2,6 +2,7 @@ package com.example.zhang.poemocean.Db;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -59,8 +60,24 @@ public class Db_readed extends Db_poems {
             }
             cursor.close();
             return AllPoems;
-
         }
+    }
+
+    public int getSize() {
+        mydb = getReadableDatabase();
+        Cursor cursor = mydb.query(_TABLE, null, null, null, null, null, null);
+        return cursor.getCount();
+    }
+
+    public boolean delAll() {
+        mydb = getWritableDatabase();
+        try {
+            mydb.execSQL("delete from " + _TABLE);
+        } catch (SQLException e) {
+            Log.i("Db", e.toString());
+            return false;
+        }
+        return true;
     }
 
     @Override

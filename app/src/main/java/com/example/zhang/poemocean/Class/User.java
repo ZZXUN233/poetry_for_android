@@ -12,10 +12,10 @@ public class User {
     private int pubs;
     private int coms;
 
-    public User(String account, String pwd, String name, String email) {
+    public User(String account, String pwd, String email) {
         this.account = account;
         this.pwd = pwd;
-        this.name = name;
+        this.name = "墨之子";
         this.email = email;
     }
 

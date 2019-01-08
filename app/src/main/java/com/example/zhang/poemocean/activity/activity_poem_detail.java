@@ -1,6 +1,7 @@
 package com.example.zhang.poemocean.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,6 +65,7 @@ public class activity_poem_detail extends Activity {
     public Dialog pub_comment;
     private Db_comment myComment;
 
+    private SimpleAdapter comments_adapter;
     private String feelsId;
     private String iflike;
 
@@ -120,8 +122,7 @@ public class activity_poem_detail extends Activity {
     }
 
     private void initLisComments() {
-        ArrayList<Comments> getCommentsByPoem = myComment.getCommentByPoem(getPoem);
-
+        final ArrayList<Comments> getCommentsByPoem = myComment.getCommentByPoem(getPoem);
         String[] from = {"emojiId", "title", "comment"};
         int[] to = {R.id.img_emoji_item, R.id.item_title, R.id.item_comment};
         TypedArray meojiIds = getResources().obtainTypedArray(R.array.emojis);
@@ -142,8 +143,43 @@ public class activity_poem_detail extends Activity {
                 comments.add(temp);
             }
         }
-        lis_comments.setAdapter(new SimpleAdapter(this, comments, R.layout.item_comments, from, to));
+        comments_adapter = new SimpleAdapter(this, comments, R.layout.item_comments, from, to);
+        lis_comments.setAdapter(comments_adapter);
 
+        lis_comments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+                AlertDialog.Builder dialog01 = new AlertDialog.Builder(activity_poem_detail.this);
+                dialog01.setMessage("删除该动态？");
+                dialog01.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        // TODO Auto-generated method stub
+                        try {
+                            myComment.delOne(getCommentsByPoem.get((int) id));
+                            comments_adapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            Log.i("list comment", e.toString());
+                        }
+//                        contentList.remove(position);//选择行的位置
+
+                    }
+
+                });
+                dialog01.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        //Toast.makeText(Homepage.this, "已取消", 0).show();
+                    }
+                });
+                dialog01.create().show();
+
+                return false;
+            }
+        });
 //        ArrayList<String> headers = new ArrayList<String>();
 //        if (getCommentsByPoem.size() == 0) {
 //            headers.add("还没有感想，你可以发表自己的感想！");
@@ -233,6 +269,7 @@ public class activity_poem_detail extends Activity {
                             result = myComment.insert(new Comments(
                                     tex_title.getText().toString(), feelsId,
                                     tex_content.getText().toString(), iflike, getPoem));
+                            comments_adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(activity_poem_detail.this, "必须输入标题和内容！", Toast.LENGTH_SHORT).show();
                         }
@@ -285,6 +322,12 @@ public class activity_poem_detail extends Activity {
 
     @Event(R.id.img_poet_info)
     private void show_poet_info(View view) {
+        new Get_Author(activity_poem_detail.this).execute(MyConfig.URLSEARCH_BY_AUTHOR_NAME + getPoem.getAuthors());
+
+    }
+
+    @Event(R.id.poem_author)
+    private void show_poet_info2(View view) {
         new Get_Author(activity_poem_detail.this).execute(MyConfig.URLSEARCH_BY_AUTHOR_NAME + getPoem.getAuthors());
 
     }
